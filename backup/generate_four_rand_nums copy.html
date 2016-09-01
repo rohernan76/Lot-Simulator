@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Generate 4 random #s</title>
+	<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<script>
+
+	// var randArr = [];
+
+	// $.get("http://159.203.175.239:8001/", function(data){
+	// 	var ranGenNum = data;
+
+	// 	for(var i = 0; i < 4; i++)
+	// 		randArr += (ranGenNum[i]);
+	// 		console.log(randArr);
+
+	// 	document.getElementById("first").innerHTML = ranGenNum;
+
+	var randArr = [];
+function startGame() {
+
+	for (var i = 0; i < 4; i++) {
+		ranGenNum = $.get("http://159.203.175.239:8001/", function(data){
+		}
+		randArr.push(ranGenNum[i]);
+		console.log(randArr);
+			
+
+			// function compare(data){
+
+			// }
+		});
+	}	
+
+			// compare(data)
+			// 	if(randArr.indexOf(data) == -1) {
+			// 		// console.log(data);
+			// 		randArr.push(data.toString());
+			// 	}
+
+			// console.log(data);
+
+
+		// if (randArr.length < 4) {
+		// 	console.log(randArr);
+		// } else {
+		// 	// showResults(randArr);
+		// 	console.log(randArr);
+		// }
+// 		});
+	
+// }
+
+
+
+
+// getRandNum();
+	
+
+// 	$.get("http://159.203.175.239:8001/", function(data){
+
+// 		var randArr = [];
+// 		var ranGenNum = data;
+// 	// console.log(ranGenNum);	
+
+// 		function getRandom() {
+// 			for(var i = 0; i < 4; i++)
+// 				randArr.push(data[i]);
+// 				console.log(randArr);
+
+// }
+// 		getRandom();
+// });
+
+	</script>
+</body>
+</html>

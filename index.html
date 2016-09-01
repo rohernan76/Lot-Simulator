@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lottery Sim</title>
+	<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+
+		#backgroundElement {
+			height:200px;
+			width: 400px;
+			background-image:url('./pick4.jpg');
+			background-repeat: no-repeat;
+/*			z-index: -1;*/
+			position: absolute;
+		}
+
+		.button {
+			padding: 10px;
+		}
+
+		.container {
+/*			background-color: yellow;*/
+/*			border: 3px solid black;*/
+			position: relative;
+			text-align: center;
+			width: 1014px;
+		}
+
+		input[type=number] {
+			width: 100px;
+			height: 100px;
+			position: relative;
+			font-size: 4em;
+			color: #FF0000;
+			text-align: center;
+			margin: 30px 70px;
+    		box-sizing: border-box;
+    		box-shadow: 10px 10px 5px #FF0000;
+		}
+
+		.winning{
+			width: 100px;
+			height: 100px;
+			font-size: 4em;
+			color: #0059b3;
+			text-align: center;
+			margin: 30px 70px;
+    		border: 1px solid lightgray;
+      		box-sizing: border-box;
+      		box-shadow: 10px 10px 5px #0059b3;
+		}
+
+		.submit {
+			width: 50px;
+			height: 50px;
+/*    		border: 1px solid red;*/
+		}
+
+		form {
+			float: center;
+		}
+
+		.winning {
+			position: ;
+		}
+
+		button  {
+			margin: 20px;
+			width: 100%;
+			height: 50px;
+			font-size: 25px;
+			color: #008010;
+			box-shadow: 10px 10px 10px #008000;
+		}
+
+		.Player h2 {
+			text-align: center;
+			color: red;
+			font-size: 50px;
+			margin: 70px;
+		}
+
+		.Winner h2 {
+			text-align: center;
+			color: blue;
+			font-size: 50px;
+		}
+
+		p {
+			font-size: 30px;
+		}
+
+		h1 {
+			font-size: 60px;
+		}
+
+</style>
+</head>
+<body>
+	
+	<div id="backgroundElement"></div>
+	
+
+	<div class="container">
+	  <h1>Lottery Simulator</h1>
+		<div class ="Player">
+	  		<h2>Your Numbers</h2>
+	  		<p id="wrong"></p>
+	  	</div>
+	  		<p>Enter 4 numbers that are each between 1 and 10:</p> 
+
+ 		<input type="number" id="bank" value="10" readonly>
+				<form>
+					<input autofocus id="num1" type="number" name="quantity" min="1" max="10">
+					<input id="num2" type="number" name="quantity" min="1" max="10">
+					<input id="num3" type="number" name="quantity" min="1" max="10">
+					<input id="num4" type="number" name="quantity" min="1" max="10">
+				</form>
+	</div>
+		
+		<div class="container">
+	  		<button type="submit" onclick="startGame()">PRESS PLAY</button> 
+
+
+	<div class="container">
+<!-- 		<div id="random">
+			<button type="button" onclick="getRandom()">Obtain 4 random #s</button>
+		</div> -->
+	</div>
+<table>
+	<tr>
+		<div id="demo">
+			<div class="Winner">
+				<h2>Winning Numbers</h2>
+			</div>
+		</div>
+			<form action="demo_form.asp">
+			  <td><div id="first" class="winning"></div></td>
+			  <td><div id="second" class="winning"></div></td>
+			  <td><div id="third" class="winning"></div></td>
+			  <td><div id="fourth" class="winning"></div></td>
+			</form>
+		</div>
+	</tr>
+</table>
+
+<script>
+
+// function startGame() {
+
+
+// ------ This is the code for inputting Player's #s ------
+
+
+	function playersNum () {
+		var num1 = $('#num1').val();
+		var num2 = $('#num2').val();
+		var num3 = $('#num3').val();
+		var num4 = $('#num4').val();
+		var arr = [num1,num2,num3,num4];
+		arr.sort();
+		// for loop with if/else - typeof(number) && 
+		for (var i=0; i < arr.length; i++) {
+				if(arr[i] > 10 && arr[i] < 0) {
+					return document.getElementById("wrong").innerHTML = "Your numbers need to be between 1 and 10! Please try again.";
+
+				} else if (arr[i] == arr[i + 1]) {
+					return document.getElementById("wrong").innerHTML = "Do not enter repeating numbers! Please try again.";
+				}
+		}
+		return arr;
+	}
+
+// ------ This is the code for generating my Winning #s -----
+
+	function startGame(){
+			$.get("https://www.random.org/integers/?num=4&min=1&max=10&col=1&base=10&format=plain&rnd=new", init);
+		}
+
+	function winNum (data) {
+		var ranGenNum = data.split("\n");
+		// var randArr = [ranGenNum[0],ranGenNum[1],ranGenNum[2],ranGenNum[3]];
+		// var randArr = ranGenNum.slice();
+		var randArr = [];
+		for (var i = 0; i < ranGenNum.length - 1; i++) {
+			randArr.push(ranGenNum[i]);
+		}
+
+		document.getElementById("first").innerHTML = ranGenNum[0];
+		document.getElementById("second").innerHTML =ranGenNum[1];
+		document.getElementById("third").innerHTML = ranGenNum[2];
+		document.getElementById("fourth").innerHTML = ranGenNum[3];
+
+		return randArr;
+	}		
+
+	function compare(arr1, arr2) {
+		console.log(arr1);
+		console.log(arr2);
+		var matchCount = 0;
+
+		for (var i = 0; i < arr1.length; i++) {
+			for(var j = 0; j < arr2.length; j++){
+		    	if (arr1[i] == arr2[j]) {
+		        	matchCount++;
+		        	if(i === 0){
+		        		document.getElementById("first").style.boxShadow = "10px 10px 5px green"; 
+		        	}else if(i == 1){
+		        		document.getElementById("second").style.boxShadow = "10px 10px 5px green"; 
+		        	}else if (i == 2){
+		        		document.getElementById("third").style.boxShadow = "10px 10px 5px green"; 
+			        } else if (i == 3) {
+			        	document.getElementById("fourth").style.boxShadow = "10px 10px 5px green"; 
+			        }
+		   	 	}
+			}
+		}
+
+		console.log(matchCount);
+
+		return matchCount;
+	}
+
+	var bank = 10;
+
+	function takemoney(match){
+		bank -= 2;
+
+		if (match === 1) {
+			bank += 4;
+		} else if (match === 3) {
+			bank += 8;
+		} else if (match === 4) {
+			bank += 40;
+		}
+	return document.getElementById("bank").value = bank;
+	}
+
+
+	function init(data) {
+		document.getElementById("wrong").innerHTML = ""; 
+
+		document.getElementById("first").style.boxShadow = "10px 10px 5px #0059b3"; 
+	
+		document.getElementById("second").style.boxShadow = "10px 10px 5px #0059b3"; 
+	
+		document.getElementById("third").style.boxShadow = "10px 10px 5px #0059b3"; 
+    
+    	document.getElementById("fourth").style.boxShadow = "10px 10px 5px #0059b3"; 
+			   
+
+		var playerArr = playersNum();
+
+		if(playerArr === undefined){
+			return;
+		}
+
+		if(bank <= 0){
+			return console.log("you have nothing");
+		}
+
+		var winArr = winNum(data);
+
+		var matchCount = compare(winArr, playerArr);
+
+		takemoney(matchCount);
+
+	}
+
+
+
+// ------- End of Winning #s code -------
+
+// }
+
+
+
+
+
+
+
+
+	// var randArr = [];
+
+	// $.get("http://159.203.175.239:8001/", function(data){
+	// 	var ranGenNum = data;
+
+	// 	for(var i = 0; i < 4; i++)
+	// 		randArr += (ranGenNum[i]);
+	// 		console.log(randArr);
+
+	// 	document.getElementById("first").innerHTML = ranGenNum;
+// });
+
+		// function getRandom() {
+		// 	for(var i = 0; i < ranGenNum; i++)
+		//      randArr.push(ranGenNum[i]);
+		//      console.log(randArr);
+
+		     // document.getElementById("first").innerHTML = randArr[0];
+		     // document.getElementById("second").innerHTML = randArr[1];
+		     // document.getElementById("third").innerHTML = randArr[2];
+		     // document.getElementById("fourth").innerHTML = randArr[3];
+		  //   }
+		  // });
+		// for(var i=0; i < 4; i++){
+		// 	var x = Math.floor((Math.random() * 10) + 1);
+		// 	getRandom();
+		// }
+
+
+	</script>
+</body>
+</html>

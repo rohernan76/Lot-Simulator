@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Putting .get into a For Loop</title>
+</head>
+<body>
+
+	<script>
+
+			for (var i = 0; i < 4; i++) {
+				ranGenNum = $.get("http://159.203.175.239:8001/", function(data){
+					randArr.push(ranGenNum[i]);
+					console.log(randArr);
+				});
+			}
+
+	</script>
+</body>
+</html>

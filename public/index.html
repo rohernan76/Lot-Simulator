@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lottery Sim</title>
+	<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+	
+		.button {
+			padding: 10px;
+		}
+
+		.container {
+			background-color: yello;
+			border: 3px solid black;
+			position: relative;
+
+		}
+
+		input[type=number] {
+			width: 100px;
+			height: 100px;
+			position: relative;
+			font-size: 4em;
+			text-align: center;
+			margin: 30px 70px;
+    		box-sizing: border-box;
+		}
+
+		.winning{
+			width: 100px;
+			height: 100px;
+/*			position: relative;*/
+			font-size: 4em;
+			text-align: center;
+			margin: 30px 70px;
+/*    		box-sizing: border-box;*/
+    		border: 1px solid lightgray;
+		}
+
+		.submit {
+			width: 50px;
+			height: 50px;
+    		border: 1px solid red;
+		}
+
+		#first.winning {
+			width: 	;
+			box-sizing: border-box; 
+		}
+
+		form {
+			float: left;
+		}
+
+</style>
+</head>
+<body>
+	
+
+	
+
+<div class="container">
+  <h1>Lottery Simulator</h1>
+  <h2>Your Numbers</h2>
+  <p>Enter 4 numbers that are each between 1 and 10:</p> 
+
+		<form action="demo_form.asp">
+		  <input type="number" name="quantity" min="1" max="10">
+		  <input type="number" name="quantity" min="1" max="10">
+		  <input type="number" name="quantity" min="1" max="10">
+		  <input type="number" name="quantity" min="1" max="10">
+		  <br>
+		  <br>
+
+		</form>
+</div>
+	<div class="container">
+	  <button type="submit" onclick="         ()">Press here to PLAY</button> 
+	</div>
+
+<br>
+	<div class="container">
+<!-- 		<div id="random">
+			<button type="button" onclick="getRandom()">Obtain 4 random #s</button>
+		</div> -->
+	<div id="demo"><h2>Winning Numbers</h2></div>
+
+		<form action="demo_form.asp">
+		  <div id="first" class="winning"></div>
+		  <div id="second" class="winning"></div>
+		  <div id="third" class="winning"></div>
+		  <div id="fourth" class="winning"></div>
+		</form>
+
+	</div>
+
+	<script>
+
+	$.get("http://159.203.175.239:8001/", function(xhttp){
+
+	var randArr = [];
+	
+		function getRandom() {
+		  var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (xhttp.readyState == 4 && xhttp.status == 200) {
+		     // document.getElementById("demo").innerHTML += xhttp.responseText;
+		     randArr.push(xhttp.responseText);
+		     console.log(randArr);
+
+		     document.getElementById("first").innerHTML = randArr[0];
+		     document.getElementById("second").innerHTML = randArr[1];
+		     document.getElementById("third").innerHTML = randArr[2];
+		     document.getElementById("fourth").innerHTML = randArr[3];
+		    }
+		  };
+		  xhttp.open("GET", "http://159.203.175.239:8001/", true);
+		  xhttp.send();
+		}
+
+		for(var i=0; i < 4; i++){
+			var x = Math.floor((Math.random() * 10) + 1);
+			getRandom();
+		}
+
+
+});
+	
+	</script>
+</body>
+</html>

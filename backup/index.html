@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lottery Sim</title>
+	<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+	
+		#backgroundElement {
+		    border: 10px solid black;
+		    padding: 35px;
+		    background: url(pick4.jpg);
+	    	background-repeat: no-repeat;
+		}
+
+		.button {
+			padding: 10px;
+		}
+
+		.container {
+/*			background-color: yellow;*/
+/*			border: 3px solid black;*/
+			position: relative;
+
+		}
+
+		input[type=number] {
+			width: 100px;
+			height: 100px;
+			position: relative;
+			font-size: 4em;
+			text-align: center;
+			margin: 30px 70px;
+    		box-sizing: border-box;
+		}
+
+		.winning{
+			width: 100px;
+			height: 100px;
+			font-size: 4em;
+			text-align: center;
+			margin: 30px 70px;
+    		border: 1px solid lightgray;
+		}
+
+		.submit {
+			width: 50px;
+			height: 50px;
+/*    		border: 1px solid red;*/
+		}
+
+		form {
+			float: center;
+		}
+
+		.winning {
+			position: ;
+		}
+
+		button  {
+			margin: 20px;
+		}
+
+		.Player h2 {
+			text-align: center;
+			color: white;
+			font-size: 100px
+		}
+
+		.Winner h2 {
+			text-align: center;
+			color: white;
+			font-size: 100px;
+		}
+</style>
+</head>
+<body>
+	
+<div id="backgroundElement"></div>
+	
+
+<div class="container">
+  <h1>Lottery Simulator</h1>
+	<div class ="Player">
+  		<h2>Your Numbers</h2>
+  	</div>
+  		<p>Enter 4 numbers that are each between 1 and 10:</p> 
+
+			<form action="demo_form.asp">
+			  <input type="number" name="quantity" min="1" max="10">
+			  <input type="number" name="quantity" min="1" max="10">
+			  <input type="number" name="quantity" min="1" max="10">
+			  <input type="number" name="quantity" min="1" max="10">
+			  <br>
+			  <br>
+			</form>
+</div>
+		
+		<div class="container">
+	  		<button type="submit" onclick="startGame()">Press here to PLAY</button> 
+		</div>
+
+<br>
+	<div class="container">
+<!-- 		<div id="random">
+			<button type="button" onclick="getRandom()">Obtain 4 random #s</button>
+		</div> -->
+<table>
+	<tr>
+		<div id="demo">
+			<div class="Winner">
+				<h2>Winning Numbers</h2>
+			</div>
+		</div>
+			<form action="demo_form.asp">
+			  <td><div id="first" class="winning"></div></td>
+			  <td><div id="second" class="winning"></div></td>
+			  <td><div id="third" class="winning"></div></td>
+			  <td><div id="fourth" class="winning"></div></td>
+			</form>
+			</div>
+	</tr>
+</table>
+	<script>
+
+// function startGame() {
+
+/* ------ This is the code for generating my Winning #s ------ */
+
+		var randArr = [];
+		var ranGenNum = [];
+
+		for(var i = 0; i < 4; i++) {
+
+			$.get("http://159.203.175.239:8001/", function(data){
+
+				// var ranGenNum = [];
+				var ranGenNum = data;
+				// console.log(ranGenNum);
+				randArr.push(ranGenNum);
+
+				document.getElementById("first").innerHTML = randArr[0];
+				document.getElementById("second").innerHTML = randArr[1];
+				document.getElementById("third").innerHTML = randArr[2];
+				document.getElementById("fourth").innerHTML = randArr[3];
+			});
+
+		}
+
+/* ------- End of Winning #s code ------- */
+
+// }
+
+
+
+
+
+
+
+
+	// var randArr = [];
+
+	// $.get("http://159.203.175.239:8001/", function(data){
+	// 	var ranGenNum = data;
+
+	// 	for(var i = 0; i < 4; i++)
+	// 		randArr += (ranGenNum[i]);
+	// 		console.log(randArr);
+
+	// 	document.getElementById("first").innerHTML = ranGenNum;
+// });
+
+		// function getRandom() {
+		// 	for(var i = 0; i < ranGenNum; i++)
+		//      randArr.push(ranGenNum[i]);
+		//      console.log(randArr);
+
+		     // document.getElementById("first").innerHTML = randArr[0];
+		     // document.getElementById("second").innerHTML = randArr[1];
+		     // document.getElementById("third").innerHTML = randArr[2];
+		     // document.getElementById("fourth").innerHTML = randArr[3];
+		  //   }
+		  // });
+		// for(var i=0; i < 4; i++){
+		// 	var x = Math.floor((Math.random() * 10) + 1);
+		// 	getRandom();
+		// }
+
+
+	</script>
+</body>
+</html>
